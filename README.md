@@ -28,11 +28,16 @@ npm install -g commitizen
 
 **🚀 Самый быстрый способ (скачать и сразу запустить):**
 ```bash
-# Скачать и запустить setup.sh одной командой:
-curl -sSL https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup.sh | bash
+# Автоматическая настройка (рекомендуется для curl | bash):
+curl -sSL https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup-simple.sh | bash
+
+# Интерактивная настройка (скачать локально):
+curl -O https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup.sh
+chmod +x setup.sh
+./setup.sh
 
 # Или через wget:
-wget -qO- https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup.sh | bash
+wget -qO- https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup-simple.sh | bash
 ```
 
 **📁 Или скачать локально и запустить:**
@@ -108,9 +113,13 @@ cz c
 
 ```
 commit-template/
-├── setup.sh                  # 🚀 Автоматическая настройка одной командой
+├── setup.sh                  # 🚀 Интерактивная настройка (локально)
+├── setup-simple.sh           # ⚡ Автоматическая настройка (curl | bash)
+├── setup-debug.sh            # 🔍 Отладочная версия для диагностики
 ├── git-wrapper.sh            # 🔄 Shell wrapper для перехвата git commit -m
 ├── .cz.toml                 # Конфигурация Commitizen
+├── hooks/
+│   └── commit-msg           # Git hook для валидации
 ├── README.md                # Эта инструкция
 ├── COMMITIZEN_SETUP.md      # Подробная документация
 └── aspro-usage.md          # Документация по использованию в Аспро
@@ -260,6 +269,18 @@ chmod +x .husky/commit-msg
 cz info
 # Скопируйте рабочую версию из шаблона
 cp /путь/к/шаблону/.cz.toml .
+```
+
+**Ошибка "cho: command not found" при curl | bash**
+```bash
+# Проблема с интерактивными элементами в curl | bash
+# Используйте автоматическую версию:
+curl -sSL https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup-simple.sh | bash
+
+# Или скачайте локально для интерактивной настройки:
+curl -O https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup.sh
+chmod +x setup.sh
+./setup.sh
 ```
 
 ---
