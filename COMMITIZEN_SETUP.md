@@ -19,7 +19,8 @@ npm install -g commitizen
 
 ## 3. Настройка Git Hook
 
-Если нужна дополнительная валидация сообщений коммитов, создайте файл `.git/hooks/commit-msg`:
+создайте файл `.git/hooks/commit-msg`:
+
 
 Сделайте hook исполняемым:
 ```bash
