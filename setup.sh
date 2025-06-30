@@ -70,7 +70,29 @@ EOF
 
 # 2. Создаем git hook для валидации коммитов
 echo "🔒 Создание git hook для валидации..."
-cat > .git/hooks/commit-msg << 'EOF'
+
+# Проверяем, используется ли Husky
+if [ -d ".husky" ]; then
+    echo "🐕 Обнаружен Husky, создаем .husky/commit-msg..."
+    cat > .husky/commit-msg << 'EOF'
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Валидация формата коммита для Commitizen
+commit_regex='^(feat|fix|docs|style|refactor|test|chore)(/.+)? \| #[0-9]+ \| .+'
+
+if ! grep -qE "$commit_regex" "$1"; then
+  echo "❌ Неверный формат сообщения коммита! Используйте команду \"cz c\""
+  echo "Используйте формат: {Тип задачи}/{название ветки} | #{ID задачи} | {Описание}"
+  echo "Пример: feat/auth | #123 | Добавлена авторизация пользователей"
+  exit 1
+fi
+EOF
+    chmod +x .husky/commit-msg
+    echo "✅ Создан .husky/commit-msg для валидации коммитов"
+else
+    # Стандартный git hook
+    cat > .git/hooks/commit-msg << 'EOF'
 #!/bin/sh
 # Git commit message template hook
 
@@ -83,9 +105,9 @@ if ! grep -qE "$commit_regex" "$1"; then
   exit 1
 fi
 EOF
-
-# Делаем hook исполняемым
-chmod +x .git/hooks/commit-msg
+    chmod +x .git/hooks/commit-msg
+    echo "✅ Создан .git/hooks/commit-msg для валидации коммитов"
+fi
 
 # 3. Настраиваем git алиас (опционально)
 echo ""
