@@ -108,7 +108,7 @@ EOF
     echo "✅ Создан .git/hooks/commit-msg для валидации коммитов"
 fi
 
-
+echo ""
 echo "🎉 Настройка завершена!"
 echo ""
 echo "📋 Что настроено:"
