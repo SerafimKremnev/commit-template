@@ -25,14 +25,33 @@ npm install -g commitizen
 ## ⚡ Быстрая настройка (одна команда)
 
 ### Вариант А - Автоматическая настройка (одна команда):
+
+**🚀 Самый быстрый способ (скачать и сразу запустить):**
+```bash
+# Скачать и запустить setup.sh одной командой:
+curl -sSL https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup.sh | bash
+
+# Или через wget:
+wget -qO- https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup.sh | bash
+```
+
+**📁 Или скачать локально и запустить:**
 ```bash
 # Из этого репозитория:
 ./setup.sh
 
 # Или скачайте в ваш проект:
-curl -O https://raw.githubusercontent.com/your-org/commit-template/main/setup.sh
+curl -O https://raw.githubusercontent.com/SerafimKremnev/commit-template/refs/heads/main/setup.sh
 chmod +x setup.sh
 ./setup.sh
+```
+
+**📦 Или клонировать репозиторий и использовать:**
+```bash
+git clone https://github.com/SerafimKremnev/commit-template.git
+cd commit-template
+./setup.sh
+# Затем скопируйте setup.sh в ваши проекты
 ```
 
 **Что делает скрипт `setup.sh`:**
