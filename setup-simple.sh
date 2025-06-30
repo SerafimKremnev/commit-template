@@ -108,45 +108,7 @@ EOF
     echo "✅ Создан .git/hooks/commit-msg для валидации коммитов"
 fi
 
-# 3. Автоматически настраиваем умный перехват
-echo "🔄 Настройка умного перехвата git commit -m → cz c..."
 
-# Простой локальный git alias
-git config alias.commit '!cz commit'
-
-# Создаем .git-commit-wrapper.sh для shell функции
-cat > .git-commit-wrapper.sh << 'EOF'
-#!/bin/bash
-# Wrapper для git commit в этом проекте
-
-# Определяем корень проекта
-PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
-CURRENT_DIR="$(pwd)"
-
-# Проверяем, что мы в том же git проекте где установлен wrapper
-if [ "$PROJECT_ROOT" = "$CURRENT_DIR" ] || [[ "$CURRENT_DIR" == "$PROJECT_ROOT"* ]]; then
-    # Мы в проекте с Commitizen - перехватываем git commit
-    if [ "$1" = "commit" ]; then
-        if [ "$2" = "-m" ]; then
-            echo "🚀 Перехват git commit -m → cz c"
-            echo "💡 Для быстрого коммита используйте: cz commit --message=\"$3\""
-            cz c
-        else
-            echo "🚀 Перехват git commit → cz commit"
-            cz commit "${@:2}"
-        fi
-    else
-        # Для других git команд используем обычный git
-        command git "$@"
-    fi
-else
-    # Вне проекта - обычный git
-    command git "$@"
-fi
-EOF
-chmod +x .git-commit-wrapper.sh
-
-echo ""
 echo "🎉 Настройка завершена!"
 echo ""
 echo "📋 Что настроено:"
@@ -156,16 +118,11 @@ echo "  ✅ .husky/commit-msg - валидация коммитов (Husky)"
 else
 echo "  ✅ .git/hooks/commit-msg - валидация коммитов"
 fi
-echo "  ✅ git alias: git commit → cz commit"
-echo "  ✅ .git-commit-wrapper.sh - умный wrapper"
 echo ""
 echo "🚀 Теперь используйте:"
 echo "  git add ."
 echo "  git commit        # теперь вызовет cz commit"
 echo "  cz c              # короткая версия"
-echo ""
-echo "💡 Для shell wrapper добавьте в ~/.bashrc или ~/.zshrc:"
-echo "function git() { if [ -f \"\$(pwd)/.git-commit-wrapper.sh\" ]; then \"\$(pwd)/.git-commit-wrapper.sh\" \"\$@\"; else command git \"\$@\"; fi; }"
 echo ""
 echo "🔍 Проверка установки:"
 echo "  cz info           # Проверить конфигурацию"
