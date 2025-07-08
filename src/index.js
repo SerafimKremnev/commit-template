@@ -32,16 +32,24 @@ async function runCommit() {
     
     // Получение изменений
     const status = await git.status();
-    if (status.files.length === 0) {
-      console.log(chalk.yellow('⚠️  Нет изменений для коммита'));
+    
+    // Фильтруем только файлы в staging area (готовые к коммиту)
+    const stagedFiles = status.files.filter(file => 
+      file.index === 'M' || file.index === 'A' || file.index === 'D' || file.index === 'R'
+    );
+    
+    if (stagedFiles.length === 0) {
+      console.log(chalk.yellow('⚠️  Нет файлов в staging area для коммита'));
+      console.log(chalk.gray('💡 Используйте git add для добавления файлов в staging area'));
       return;
     }
     
-    console.log(chalk.cyan('📝 Изменения для коммита:'));
-    status.files.forEach(file => {
-      const status = file.working_dir === 'M' ? 'modified' : 
-                    file.working_dir === 'A' ? 'added' : 
-                    file.working_dir === 'D' ? 'deleted' : 'unknown';
+    console.log(chalk.cyan('📝 Файлы готовые к коммиту:'));
+    stagedFiles.forEach(file => {
+      const status = file.index === 'M' ? 'modified' : 
+                    file.index === 'A' ? 'added' : 
+                    file.index === 'D' ? 'deleted' : 
+                    file.index === 'R' ? 'renamed' : 'unknown';
       console.log(`  ${chalk.gray(status)} ${file.path}`);
     });
     console.log('');
