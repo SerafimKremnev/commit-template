@@ -1,6 +1,6 @@
 {
   "name": "commit-template-oxem",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Утилита для стандартизации коммитов с интерактивным интерфейсом и расширяемой конфигурацией",
   "main": "src/index.js",
   "bin": {
