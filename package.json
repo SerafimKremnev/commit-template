@@ -1,0 +1,35 @@
+{
+  "name": "commit-template",
+  "version": "1.0.0",
+  "description": "Утилита для стандартизации коммитов с интерактивным интерфейсом",
+  "main": "src/index.js",
+  "bin": {
+    "commit-template": "./bin/commit-template.js"
+  },
+  "scripts": {
+    "commit": "node ./bin/commit-template.js",
+    "test": "jest",
+    "lint": "eslint src/**/*.js",
+    "build": "echo 'No build step required'"
+  },
+  "keywords": [
+    "git",
+    "commit",
+    "commitizen",
+    "standardization"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^8.2.6",
+    "simple-git": "^3.22.0",
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.56.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
