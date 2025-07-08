@@ -63,14 +63,23 @@ async function runCommit() {
     // Подтверждение коммита
     const { confirm } = await inquirer.prompt([
       {
-        type: 'confirm',
+        type: 'input',
         name: 'confirm',
-        message: `Создать коммит с сообщением:\n\n${chalk.cyan(commitMessage)}\n\nПродолжить?`,
-        default: true
+        message: `Создать коммит с сообщением:\n\n${chalk.cyan(commitMessage)}\n\nНажмите Enter для подтверждения или 'n' для отмены:`,
+        default: '',
+        filter: (input) => input.trim().toLowerCase(),
+        validate: (input) => {
+          const value = input.trim().toLowerCase();
+          if (value === '' || value === 'y' || value === 'yes' || value === 'n' || value === 'no') {
+            return true;
+          }
+          return 'Введите Enter для подтверждения или n для отмены';
+        }
       }
     ]);
     
-    if (!confirm) {
+    const shouldCommit = confirm === '' || confirm === 'y' || confirm === 'yes';
+    if (!shouldCommit) {
       console.log(chalk.yellow('❌ Коммит отменен'));
       return;
     }
