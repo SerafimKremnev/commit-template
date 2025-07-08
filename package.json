@@ -1,6 +1,6 @@
 {
   "name": "commit-template-oxem",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Утилита для стандартизации коммитов с интерактивным интерфейсом и расширяемой конфигурацией",
   "main": "src/index.js",
   "bin": {
@@ -13,7 +13,6 @@
     "build": "echo 'No build step required'",
     "prepublishOnly": "npm test"
   },
-
   "keywords": [
     "git",
     "commit",
