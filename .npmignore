@@ -1,0 +1,33 @@
+# Development files
+.git/
+.gitignore
+.npmignore
+.DS_Store
+
+# Tests
+tests/
+coverage/
+.nyc_output/
+
+# Development scripts
+scripts/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+tmp/
+temp/
+
+# Example config (users will create their own)
+commit.config.js
+
+# Development dependencies
+node_modules/ 

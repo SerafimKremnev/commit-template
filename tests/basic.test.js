@@ -6,6 +6,7 @@ describe('Commit Template Tests', () => {
     it('should format basic commit message', () => {
       const answers = {
         type: 'feat',
+        taskId: '123',
         subject: 'add new feature'
       };
       
@@ -13,13 +14,13 @@ describe('Commit Template Tests', () => {
       const branch = 'main';
       
       const result = formatCommitMessage(answers, config, branch);
-      expect(result).toBe('feat: add new feature');
+      expect(result).toBe('feat/[main] | #123 | add new feature');
     });
     
     it('should format commit message with scope', () => {
       const answers = {
         type: 'fix',
-        scope: 'auth',
+        taskId: '456',
         subject: 'fix login bug'
       };
       
@@ -27,54 +28,45 @@ describe('Commit Template Tests', () => {
       const branch = 'main';
       
       const result = formatCommitMessage(answers, config, branch);
-      expect(result).toBe('fix(auth): fix login bug');
+      expect(result).toBe('fix/[main] | #456 | fix login bug');
     });
     
-    it('should format commit message with body', () => {
+    it('should format commit message with custom format', () => {
       const answers = {
         type: 'docs',
-        subject: 'update README',
-        body: 'Added installation instructions'
-      };
-      
-      const config = {};
-      const branch = 'main';
-      
-      const result = formatCommitMessage(answers, config, branch);
-      expect(result).toBe('docs: update README\n\nAdded installation instructions');
-    });
-    
-    it('should format commit message with breaking change', () => {
-      const answers = {
-        type: 'feat',
-        subject: 'change API',
-        breaking: true,
-        breakingDescription: 'API now returns Promise'
-      };
-      
-      const config = {};
-      const branch = 'main';
-      
-      const result = formatCommitMessage(answers, config, branch);
-      expect(result).toBe('feat: change API\n\nBREAKING CHANGE: API now returns Promise');
-    });
-    
-    it('should use custom message format', () => {
-      const answers = {
-        type: 'feat',
-        subject: 'add feature'
+        taskId: '789',
+        subject: 'update README'
       };
       
       const config = {
         messageFormat: (answers, config, branch) => {
-          return `✨ ${answers.type}: ${answers.subject}`;
+          return `${answers.type}/[${branch}] | #${answers.taskId} | ${answers.subject}`;
         }
       };
       
       const branch = 'main';
       
       const result = formatCommitMessage(answers, config, branch);
-      expect(result).toBe('✨ feat: add feature');
+      expect(result).toBe('docs/[main] | #789 | update README');
+    });
+    
+    it('should use custom message format', () => {
+      const answers = {
+        type: 'feat',
+        taskId: '999',
+        subject: 'add feature'
+      };
+      
+      const config = {
+        messageFormat: (answers, config, branch) => {
+          return `✨ ${answers.type}: ${answers.subject} (Task: ${answers.taskId})`;
+        }
+      };
+      
+      const branch = 'main';
+      
+      const result = formatCommitMessage(answers, config, branch);
+      expect(result).toBe('✨ feat: add feature (Task: 999)');
     });
   });
   
