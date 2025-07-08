@@ -1,4 +1,4 @@
-# commit-template
+# commit-template-oxem
 
 ## Быстрый старт
 
@@ -8,7 +8,7 @@
    ```
    или глобально
    ```bash
-   npm install -g commit-template
+   npm install -g commit-template-oxem
    ```
 
 2. Добавьте скрипт в package.json:
