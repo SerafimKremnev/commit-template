@@ -1,10 +1,10 @@
 {
-  "name": "commit-template",
+  "name": "commit-template-oxem",
   "version": "1.0.0",
   "description": "Утилита для стандартизации коммитов с интерактивным интерфейсом и расширяемой конфигурацией",
   "main": "src/index.js",
   "bin": {
-    "commit-template": "./bin/commit-template.js"
+    "cmt": "./bin/commit-template.js"
   },
   "scripts": {
     "commit": "node ./bin/commit-template.js",
