@@ -4,16 +4,24 @@
 
 1. Установите пакет:
    ```bash
-   npm install --save-dev commit-template
+   npm install --save-dev commit-template-oxem
+   ```
+   или глобально
+   ```bash
+   npm install -g commit-template
    ```
 
 2. Добавьте скрипт в package.json:
    ```json
    {
      "scripts": {
-       "commit": "commit-template"
+       "commit": "cmt"
      }
    }
+   ```
+   если установили глобально используй
+   ```
+   cmt
    ```
 
 3. Создайте файл `commit.config.js` в корне проекта:
