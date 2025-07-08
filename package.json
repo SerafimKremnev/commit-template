@@ -13,6 +13,7 @@
     "build": "echo 'No build step required'",
     "prepublishOnly": "npm test"
   },
+  
   "keywords": [
     "git",
     "commit",
